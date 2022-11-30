@@ -10,7 +10,7 @@ function set_env(){
 	apt-get update
 	apt-get install -y openssh-server
 	sed -i -E 's/.*PermitRootLogin .*/PermitRootLogin yes/g' /etc/ssh/sshd_config
-	echo "root:123456" | chpaswwd
+	echo "root:123456" | chpasswd
 	service sshd restart
 }
 
