@@ -8,6 +8,8 @@ step_ag=3
 start=$step_env
 
 function set_env(){
+  sed -i '41,42s/^# //' /etc/inputrc
+
 	apt-get update
 	apt-get install -y openssh-server
 	sed -i -E 's/.*PermitRootLogin .*/PermitRootLogin yes/g' /etc/ssh/sshd_config
