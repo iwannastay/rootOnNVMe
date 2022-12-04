@@ -3,7 +3,7 @@
 step_env=0
 step_py=1
 step_jp=2
-step_
+step_ag=3
 
 start=$step_env
 
@@ -60,7 +60,6 @@ cd "docker"
 
 function install_all(){
 	set_env \
-	&& install_python \
 	&& install_jetpack \
 	&& install_agent \
 	&& echo 'installation completed.'
@@ -91,6 +90,9 @@ function main(){
 			;;
 		$step_jp)
 			install_jetpack
+			;;
+		$step_ag)
+			install_agent
 			;;
 	esac
 }
