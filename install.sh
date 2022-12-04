@@ -3,6 +3,7 @@
 step_env=0
 step_py=1
 step_jp=2
+step_
 
 start=$step_env
 
@@ -16,6 +17,8 @@ function set_env(){
 
 
 function install_python(){
+  return 0
+
 	wget http://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
 
 	apt-get install -y zlib1g-dev libbz2-dev libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev tk-dev libgdbm-dev libdb-dev libpcap-dev xz-utils libexpat1-dev liblzma-dev libffi-dev libc6-dev
@@ -42,12 +45,24 @@ function install_jetpack(){
 	apt-get install -y nvidia-jetpack
 }
 
+function install_agent(){
+workdir="/home/workspace"
+if [ ! -d "$workdir" ];then mkdir $workdir;
+elif [ -d "$workdir/NoisyCompression" ];then rm -rf  "$workdir/NoisyCompression";fi
+git clone https://github.com/iwannastay/NoisyCompression.git "$workdir/NoisyCompression"
+cd "$workdir/NoisyCompression/Deploy"
+./update.sh && ./run.sh
 
+cd "docker"
+./get_data.sh && ./pull.sh && ./run.sh
+
+}
 
 function install_all(){
 	set_env \
 	&& install_python \
 	&& install_jetpack \
+	&& install_agent \
 	&& echo 'installation completed.'
 }
 
