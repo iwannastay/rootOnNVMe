@@ -62,8 +62,13 @@ git clone http://10.16.3.108:10080/LuShun/NoisyCompression.git "$workdir/NoisyCo
 cd "$workdir/NoisyCompression/Deploy"
 ./update.sh && ./run.sh
 
+
+pkill -SIGHUP dockerd
 cd "docker"
 ./get_data.sh && ./pull.sh && ./run.sh
+
+cd ..
+./auto_start.sh
 
 }
 
