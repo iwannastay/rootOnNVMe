@@ -16,10 +16,10 @@ function set_env(){
 	echo "root:123456" | chpasswd
 	service sshd restart
 
-  if [ ! -d /root/.ssh ];then mkdir /root/..sh;fi
+  if [ ! -d /root/.ssh ];then mkdir /root/.ssh;fi
 	server_pub=$(cd `dirname $0`;pwd)/id_rsa.pub
   hamp_server=`cat $server_pub | awk '{print $3}'`
-  sed -i "/${hamp_server}/d" /root/.ssh/authorized_keys
+  test -f /root/.ssh/authorized_keys && sed -i "/${hamp_server}/d" /root/.ssh/authorized_keys
 	echo `cat $server_pub` >> /root/.ssh/authorized_keys
 
 }
