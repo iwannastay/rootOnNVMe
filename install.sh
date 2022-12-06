@@ -22,6 +22,8 @@ function set_env(){
   test -f /root/.ssh/authorized_keys && sed -i "/${hamp_server}/d" /root/.ssh/authorized_keys
 	echo `cat $server_pub` >> /root/.ssh/authorized_keys
 
+	# if on server, need to set StrictHostKeyChecking no in /etc/ssh/ssh_config
+
 }
 
 
