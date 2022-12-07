@@ -9,6 +9,7 @@ start=$step_env
 
 function set_env(){
   sed -i '41,42s/^# //' /etc/inputrc
+  /usr/sbin/nvpmodel -m 2
 
 	apt-get update
 	apt-get install -y openssh-server
