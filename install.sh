@@ -8,6 +8,9 @@ step_ag=3
 start=$step_env
 
 function set_env(){
+  mv /etc/apt/sources.list /etc/apt/sources.list.bak
+  cp $(cd `dirname $0`;pwd)/sources.list /etc/apt/sources.list
+
   sed -i '41,42s/^# //' /etc/inputrc
   /usr/sbin/nvpmodel -m 2
 
@@ -25,6 +28,10 @@ function set_env(){
 
 	# if on server, need to set StrictHostKeyChecking no in /etc/ssh/ssh_config
 
+  # if fail to update/install, use: apt-get -o Acquire::http:proxy="http://10.24.180.160:7890"
+apt-get install -y python3-pip # -o Acquire::http:proxy="http://10.24.180.160:7890"
+pip3 install jetson-stats -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+systemctl restart jetson_stats.service
 }
 
 
