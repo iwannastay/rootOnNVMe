@@ -36,32 +36,34 @@ systemctl restart jetson_stats.service
 
 
 function install_python(){
-  return 0
+return 0
 
-	wget http://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
+wget http://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
 
-	apt-get install -y zlib1g-dev libbz2-dev libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev tk-dev libgdbm-dev libdb-dev libpcap-dev xz-utils libexpat1-dev liblzma-dev libffi-dev libc6-dev
+apt-get install -y zlib1g-dev libbz2-dev libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev tk-dev libgdbm-dev libdb-dev libpcap-dev xz-utils libexpat1-dev liblzma-dev libffi-dev libc6-dev
 
-	tar -zxvf Python-3.7.0.tgz && cd Python-3.7.0/
+tar -zxvf Python-3.7.0.tgz && cd Python-3.7.0/
 
-	sudo ./configure --with-ssl --prefix=/usr/local/python3
+sudo ./configure --with-ssl --prefix=/usr/local/python3
 
-	make&&make install
+make&&make install
 
-	if [ $? == 0 ];then
+if [ $? == 0 ];then
+
 rm -rf /usr/bin/python
 ln -s /usr/local/python3/bin/python37 /usr/bin/python
 rm -rf /usr/bin/pip
 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip
 pip install --upgrade pip
-		echo 'install python3.7 successful.'
-	else
-		echo '[ERROR] install python3.7 failed. use default version.'
-	fi
+
+echo 'install python3.7 successful.'
+else
+echo '[ERROR] install python3.7 failed. use default version.'
+fi
 }
 
 function install_jetpack(){
-	apt-get install -y nvidia-jetpack
+apt-get install -y nvidia-jetpack
 }
 
 function install_agent(){
