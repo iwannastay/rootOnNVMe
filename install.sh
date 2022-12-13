@@ -8,23 +8,23 @@ step_ag=3
 start=$step_env
 
 function set_env(){
-  mv /etc/apt/sources.list /etc/apt/sources.list.bak
-  cp $(cd `dirname $0`;pwd)/sources.list /etc/apt/sources.list
+mv /etc/apt/sources.list /etc/apt/sources.list.bak
+cp $(cd `dirname $0`;pwd)/sources.list /etc/apt/sources.list
 
-  sed -i '41,42s/^# //' /etc/inputrc
-  /usr/sbin/nvpmodel -m 2
+sed -i '41,42s/^# //' /etc/inputrc
+/usr/sbin/nvpmodel -m 2
 
-	apt-get update
-	apt-get install -y openssh-server
-	sed -i -E 's/.*PermitRootLogin .*/PermitRootLogin yes/g' /etc/ssh/sshd_config
-	echo "root:123456" | chpasswd
-	service sshd restart
+apt-get update
+apt-get install -y openssh-server
+sed -i -E 's/.*PermitRootLogin .*/PermitRootLogin yes/g' /etc/ssh/sshd_config
+echo "root:123456" | chpasswd
+service sshd restart
 
-  if [ ! -d /root/.ssh ];then mkdir /root/.ssh;fi
-	server_pub=$(cd `dirname $0`;pwd)/id_rsa.pub
-  hamp_server=`cat $server_pub | awk '{print $3}'`
-  test -f /root/.ssh/authorized_keys && sed -i "/${hamp_server}/d" /root/.ssh/authorized_keys
-	echo `cat $server_pub` >> /root/.ssh/authorized_keys
+if [ ! -d /root/.ssh ];then mkdir /root/.ssh;fi
+server_pub=$(cd `dirname $0`;pwd)/id_rsa.pub
+hamp_server=`cat $server_pub | awk '{print $3}'`
+test -f /root/.ssh/authorized_keys && sed -i "/${hamp_server}/d" /root/.ssh/authorized_keys
+echo `cat $server_pub` >> /root/.ssh/authorized_keys
 
 	# if on server, need to set StrictHostKeyChecking no in /etc/ssh/ssh_config
 
