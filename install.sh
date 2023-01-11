@@ -70,7 +70,7 @@ function install_agent(){
 workdir="/home/workspace"
 if [ ! -d "$workdir" ];then mkdir $workdir;
 elif [ -d "$workdir/NoisyCompression" ];then rm -rf  "$workdir/NoisyCompression";fi
-git clone http://10.16.3.108:10080/LuShun/NoisyCompression.git "$workdir/NoisyCompression"
+git clone https://e.coding.net/sustech-dnn-compression/hardware-aware-dnn-compression/NoisyCompression.git "$workdir/NoisyCompression"
 cd "$workdir/NoisyCompression/Deploy"
 ./update.sh && ./run.sh
 
